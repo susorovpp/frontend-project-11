@@ -1,0 +1,8 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "main": "index.html",
+  "repository": "https://github.com/susorovpp/frontend-project-11.git",
+  "author": "Pavel Susorov",
+  "license": "MIT"
+}
