@@ -31,7 +31,6 @@ bower_components/
 dist/
 
 # Gatsby files
-.cache/
 public/
 
 # Vue.js
