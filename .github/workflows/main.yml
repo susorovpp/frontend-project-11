@@ -2,12 +2,15 @@ name: main
 on: push
 jobs:
   build:
-    name: Run lint scanning
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - name: install packages
-        run: make install
-      - name: linter
+
+      - name: Install and build packages
+        run: |
+          make install
+          make build
+
+      - name: Run linter
         run: make lint
