@@ -10,6 +10,15 @@ export default {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
+  devServer: {
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+        runtimeErrors: true,
+      },
+    },
+  },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'RSS project',
@@ -31,19 +40,7 @@ export default {
       { test: /\.css$/, use: ['style-loader', 'css-loader', 'postcss-loader'] },
       {
         test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              sassOptions: {
-                quietDeps: true,
-              },
-            },
-          },
-        ],
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
         test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
