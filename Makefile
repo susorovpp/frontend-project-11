@@ -1,7 +1,7 @@
 install:
 	npm ci
 
-develop:
+dev:
 	npm run dev
 
 lint:
