@@ -1,28 +1,32 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as yup from 'yup';
-import { formEl, watchedState } from './view.js';
+import { formEl, resetForm } from './view.js';
+import state from './state.js';
 
 const makeSchema = (existingUrls) =>
   yup
     .string()
-    .required()
-    .url()
-    .notOneOf([...existingUrls]);
+    .required('Не должно быть пустым')
+    .url('Ссылка должна быть валидным URL')
+    .notOneOf(existingUrls, 'RSS уже существует');
 
 formEl.addEventListener('submit', (e) => {
   e.preventDefault();
   const data = new FormData(e.target);
-  const url = data.get('url');
+  const url = data.get('url').trim();
 
-  const schema = makeSchema(watchedState);
+  const schema = makeSchema(state.urls);
 
   schema
     .validate(url)
     .then(() => {
-      watchedState.urls.push(url);
-      watchedState.form.status = 'valid';
+      state.urls.push(url);
+      state.form.error = '';
+      state.form.status = 'valid';
+      resetForm();
     })
-    .catch(() => {
-      watchedState.form.status = 'invalid';
+    .catch((err) => {
+      state.form.error = err.message;
+      state.form.status = 'invalid';
     });
 });
