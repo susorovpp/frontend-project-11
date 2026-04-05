@@ -1,32 +1,43 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as yup from 'yup';
-import { formEl, resetForm } from './view.js';
+import { formEl, initView, resetForm } from './view.js';
 import state from './state.js';
+import initI18n from './i18n.js';
 
-const makeSchema = (existingUrls) =>
-  yup
-    .string()
-    .required('Не должно быть пустым')
-    .url('Ссылка должна быть валидным URL')
-    .notOneOf(existingUrls, 'RSS уже существует');
+initI18n().then((i18n) => {
+  initView(i18n);
 
-formEl.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const data = new FormData(e.target);
-  const url = data.get('url').trim();
+  yup.setLocale({
+    mixed: {
+      required: 'errors.required',
+      notOneOf: 'errors.duplicate',
+    },
+    string: {
+      url: 'errors.invalidUrl',
+    },
+  });
 
-  const schema = makeSchema(state.urls);
+  const makeSchema = (existingUrls) =>
+    yup.string().required().url().notOneOf(existingUrls);
 
-  schema
-    .validate(url)
-    .then(() => {
-      state.urls.push(url);
-      state.form.error = '';
-      state.form.status = 'valid';
-      resetForm();
-    })
-    .catch((err) => {
-      state.form.error = err.message;
-      state.form.status = 'invalid';
-    });
+  formEl.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const url = data.get('url').trim();
+
+    const schema = makeSchema(state.urls);
+
+    schema
+      .validate(url)
+      .then(() => {
+        state.urls.push(url);
+        state.form.error = '';
+        state.form.status = 'valid';
+        resetForm();
+      })
+      .catch((err) => {
+        state.form.error = err.message;
+        state.form.status = 'invalid';
+      });
+  });
 });

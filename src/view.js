@@ -5,6 +5,12 @@ export const formEl = document.querySelector('form');
 export const inputEl = document.querySelector('input');
 export const feedbackEl = document.querySelector('.feedback');
 
+let i18nInstance;
+
+export const initView = (i18n) => {
+  i18nInstance = i18n;
+};
+
 export const resetForm = () => {
   formEl.reset();
   inputEl.focus();
@@ -24,7 +30,7 @@ const render = () => {
     inputEl.classList.add('is-invalid');
     inputEl.classList.remove('is-valid');
 
-    feedbackEl.textContent = error;
+    feedbackEl.textContent = i18nInstance.t(error);
     feedbackEl.classList.remove('text-success');
     feedbackEl.classList.add('text-danger');
     return;
@@ -34,7 +40,7 @@ const render = () => {
     inputEl.classList.remove('is-invalid');
     inputEl.classList.add('is-valid');
 
-    feedbackEl.textContent = 'RSS успешно загружен';
+    feedbackEl.textContent = i18nInstance.t('success');
     feedbackEl.classList.remove('text-danger');
     feedbackEl.classList.add('text-success');
 
