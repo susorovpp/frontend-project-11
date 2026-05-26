@@ -6,6 +6,8 @@ const state = proxy({
     error: '',
   },
   urls: [],
+  feeds: [],
+  posts: [],
 });
 
 export default state;
