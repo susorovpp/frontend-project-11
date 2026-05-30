@@ -1,26 +1,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import * as yup from 'yup';
 import { formEl, initView, resetForm } from './view/index.js';
 import state from './state.js';
 import initI18n from './i18n.js';
 import { getFeed } from './api.js';
 import { parseRSS } from './parser.js';
+import { makeSchema } from './validation.js';
+import { normalizeRSSData } from './normalizers.js';
+import { watchFeeds } from './update.js';
 
 initI18n().then((i18n) => {
   initView(i18n);
 
-  yup.setLocale({
-    mixed: {
-      required: 'errors.required',
-      notOneOf: 'errors.duplicate',
-    },
-    string: {
-      url: 'errors.invalidUrl',
-    },
-  });
-
-  const makeSchema = (existingUrls) =>
-    yup.string().required().url().notOneOf(existingUrls);
+  watchFeeds();
 
   formEl.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -36,24 +27,13 @@ initI18n().then((i18n) => {
 
         return getFeed(url);
       })
+      .then(parseRSS)
       .then((rssData) => {
-        const { feed, posts } = parseRSS(rssData);
-
-        const feedId = crypto.randomUUID();
-        const preparedFeed = {
-          ...feed,
-          id: feedId,
-        };
-
-        const preparedPosts = posts.map((post) => ({
-          ...post,
-          id: crypto.randomUUID(),
-          feedId,
-        }));
+        const { feed, posts } = normalizeRSSData({ ...rssData, url });
 
         state.urls.push(url);
-        state.feeds.push(preparedFeed);
-        state.posts.push(...preparedPosts);
+        state.feeds.push(feed);
+        state.posts.push(...posts);
 
         state.form.error = '';
         state.form.status = 'valid';
