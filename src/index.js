@@ -40,13 +40,11 @@ initI18n().then((i18n) => {
         resetForm();
       })
       .catch((err) => {
-        // if (err.message.startsWith('errors.')) {
-        //   state.form.error = err.message;
-        // } else {
-        //   state.form.error = 'errors.network';
-        // }
-
-        state.form.error = err;
+        if (err.message.startsWith('errors.')) {
+          state.form.error = err.message;
+        } else {
+          state.form.error = 'errors.network';
+        }
 
         state.form.status = 'invalid';
       });

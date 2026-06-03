@@ -1,5 +1,7 @@
+import uniqueId from 'lodash.uniqueid';
+
 export const normalizeRSSData = ({ feed, posts, url }) => {
-  const feedId = crypto.randomUUID();
+  const feedId = uniqueId();
 
   return {
     feed: {
@@ -9,7 +11,7 @@ export const normalizeRSSData = ({ feed, posts, url }) => {
     },
     posts: posts.map((post) => ({
       ...post,
-      id: crypto.randomUUID(),
+      id: uniqueId(),
       feedId,
     })),
   };

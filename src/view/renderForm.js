@@ -24,8 +24,7 @@ export const renderForm = ({
     inputEl.classList.add('is-invalid');
     inputEl.classList.remove('is-valid');
 
-    // feedbackEl.textContent = i18n.t(error);
-    feedbackEl.textContent = error;
+    feedbackEl.textContent = i18n.t(error);
     feedbackEl.classList.remove('text-success');
     feedbackEl.classList.add('text-danger');
     return;
