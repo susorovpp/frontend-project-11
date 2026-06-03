@@ -9,8 +9,5 @@ const getProxyUrl = (url) => {
 export const getFeed = (url) => {
   const proxyUrl = getProxyUrl(url);
 
-  return axios.get(proxyUrl).then((response) => {
-    console.dir(response);
-    return response.data.contents;
-  });
+  return axios.get(proxyUrl).then((response) => response.data.contents);
 };
