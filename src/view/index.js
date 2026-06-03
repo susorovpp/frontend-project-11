@@ -36,7 +36,11 @@ const render = () => {
 
   renderFeeds({ feeds: state.feeds, container: feedsEl });
 
-  renderPosts({ posts: state.posts, container: postsEl });
+  renderPosts({
+    posts: state.posts,
+    viewedPostsIds: state.ui.viewedPostsIds,
+    container: postsEl,
+  });
 };
 
 subscribe(state, render);

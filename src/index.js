@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { formEl, initView, resetForm } from './view/index.js';
+import { formEl, initView, postsEl, resetForm } from './view/index.js';
 import state from './state.js';
 import initI18n from './i18n.js';
 import { getFeed } from './api.js';
@@ -48,5 +48,19 @@ initI18n().then((i18n) => {
 
         state.form.status = 'invalid';
       });
+  });
+
+  postsEl.addEventListener('click', (e) => {
+    const button = e.target.closest('[data-post-id]');
+
+    if (!button) {
+      return;
+    }
+
+    const postId = button.dataset.postId;
+
+    if (!state.ui.viewedPostsIds.includes(postId)) {
+      state.ui.viewedPostsIds.push(postId);
+    }
   });
 });

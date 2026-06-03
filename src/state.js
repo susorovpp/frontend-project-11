@@ -8,6 +8,9 @@ const state = proxy({
   urls: [],
   feeds: [],
   posts: [],
+  ui: {
+    viewedPostsIds: [],
+  },
 });
 
 export default state;

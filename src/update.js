@@ -19,7 +19,7 @@ export const watchFeeds = () => {
           feedId: feed.id,
         }));
 
-        state.posts.push(...preparedNewPosts);
+        state.posts.unshift(...preparedNewPosts);
       })
       .catch((err) => console.error('Feed update failed:', err))
   );
