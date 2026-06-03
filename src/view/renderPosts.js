@@ -1,5 +1,3 @@
-import 'bootstrap/js/dist/modal.js';
-
 export const renderPosts = ({ posts, viewedPostsIds, container }) => {
   if (posts.length === 0) {
     container.innerHTML = '';
@@ -14,26 +12,7 @@ export const renderPosts = ({ posts, viewedPostsIds, container }) => {
       return `
         <li class="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0">
           <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="${linkClass}">${post.title}</a>
-          
           <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal" data-post-id="${post.id}">Просмотр</button>
-          
-          <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal-${post.id}-label" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modal-${post.id}-label">${post.title}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ${post.description}
-                    </div>
-                    <div class="modal-footer">
-                        <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Читать полностью</a>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    </div>
-                </div>
-            </div>
-          </div>
         </li>
       `;
     })

@@ -59,6 +59,8 @@ initI18n().then((i18n) => {
 
     const postId = button.dataset.postId;
 
+    state.ui.currentPostId = postId;
+
     if (!state.ui.viewedPostsIds.includes(postId)) {
       state.ui.viewedPostsIds.push(postId);
     }

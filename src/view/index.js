@@ -3,6 +3,7 @@ import { subscribe } from 'valtio/vanilla';
 import { renderForm } from './renderForm.js';
 import { renderFeeds } from './renderFeeds.js';
 import { renderPosts } from './renderPosts.js';
+import { renderModal } from './renderModal.js';
 
 export const formEl = document.querySelector('form');
 export const inputEl = document.querySelector('input');
@@ -10,6 +11,7 @@ export const feedbackEl = document.querySelector('.feedback');
 const submitButtonEl = document.querySelector('button[type="submit"]');
 export const feedsEl = document.querySelector('.feeds');
 export const postsEl = document.querySelector('.posts');
+export const modalContainerEl = document.querySelector('#modal');
 
 let i18nInstance;
 
@@ -40,6 +42,12 @@ const render = () => {
     posts: state.posts,
     viewedPostsIds: state.ui.viewedPostsIds,
     container: postsEl,
+  });
+
+  renderModal({
+    posts: state.posts,
+    currentPostId: state.ui.currentPostId,
+    container: modalContainerEl,
   });
 };
 

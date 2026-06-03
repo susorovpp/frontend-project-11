@@ -10,6 +10,7 @@ const state = proxy({
   posts: [],
   ui: {
     viewedPostsIds: [],
+    currentPostId: null,
   },
 });
 
