@@ -40,7 +40,7 @@ initI18n().then((i18n) => {
         resetForm();
       })
       .catch((err) => {
-        console.log(err);
+        console.error('indexError', err);
         if (err.message.startsWith('errors.')) {
           state.form.error = err.message;
         } else {
