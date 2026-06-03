@@ -46,7 +46,7 @@ initI18n().then((i18n) => {
         //   state.form.error = 'errors.network';
         // }
 
-        state.form.error = err.message;
+        state.form.error = err;
 
         state.form.status = 'invalid';
       });

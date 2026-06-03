@@ -1,7 +1,4 @@
 export const normalizeRSSData = ({ feed, posts, url }) => {
-  console.log('crypto', crypto);
-
-  console.log('randomUUID', crypto.randomUUID);
   const feedId = crypto.randomUUID();
 
   return {
