@@ -15,9 +15,9 @@ export const renderPosts = ({ posts, viewedPostsIds, container }) => {
         <li class="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0">
           <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="${linkClass}">${post.title}</a>
           
-          <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${post.id}" data-post-id="${post.id}">Просмотр</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal" data-post-id="${post.id}">Просмотр</button>
           
-          <div class="modal fade" id="modal-${post.id}" tabindex="-1" aria-labelledby="modal-${post.id}-label" aria-hidden="true">
+          <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal-${post.id}-label" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
